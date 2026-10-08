@@ -253,6 +253,21 @@ void execute_command(void)
             __asm__ volatile ("hlt");
         }
     }
+    else if (string_equals(command, "shutdown"))
+    {
+        print("Shutting down...\n");
+
+        outb(0x604, 0x2000);
+
+        while (1)
+        {
+            __asm__ volatile ("hlt");
+        }
+    }
+    else if (string_equals(command, "version"))
+    {
+        print("MyOS version 1.0\n");
+    }
 
     else
     {
