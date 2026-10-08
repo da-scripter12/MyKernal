@@ -268,7 +268,10 @@ void execute_command(void)
     {
         print("MyOS version 1.0\n");
     }
-
+    else if (string_equals(command, "whoami"))
+    {
+        print("root\n");
+    }
     else
     {
         print("Unknown command: ");
