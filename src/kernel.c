@@ -266,7 +266,7 @@ void execute_command(void)
     }
     else if (string_equals(command, "version"))
     {
-        print("MyOS version 1.0\n");
+        print("GojiOS version 1.0\n");
     }
     else if (string_equals(command, "whoami"))
     {
@@ -362,14 +362,14 @@ void kernel_main(void)
     clear_screen();
 
     print("========================================\n");
-    print("              MyOS Kernel\n");
+    print("              GojiOS Kernel\n");
     print("========================================\n");
     print("\n");
-    print("Welcome to MyOS!\n");
+    print("Welcome to GojiOS!\n");
     print("Type 'help' for commands.\n");
     print("\n");
 
-    print("myOS> ");
+    print("Gsh> ");
 
     while (1)
     {
