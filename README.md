@@ -13,6 +13,8 @@ A tiny x86 kernel written in C and Assembly.
 - `echo`
 - `about`
 - `reboot`
+- `version`
+- `whoami`
 
 ## Building
 
