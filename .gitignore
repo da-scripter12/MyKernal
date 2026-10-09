@@ -1,9 +1,9 @@
-kernel.iso
-kernel.bin
-kernel.elf
-boot.o
-kernel.o
-keyboard.o
-video.o
-src/kernel.o
-src/temp.txt
+# Compiled files
+*.o
+*.bin
+*.elf
+*.iso
+
+# Build directories
+build/
+dist/
