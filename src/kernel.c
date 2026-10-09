@@ -1,9 +1,6 @@
-#define KEYBOARD_DATA_PORT   0x60
-#define KEYBOARD_STATUS_PORT 0x64
-#define VIDEO_MEMORY          0xB8000
-
-#define WIDTH  80
-#define HEIGHT 25
+#include "keyboard.h"
+#include "commands.h"
+#include "video.h"
 
 typedef unsigned char  uint8_t;
 typedef unsigned short uint16_t;
