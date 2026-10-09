@@ -1,4 +1,6 @@
-#ifndef keyboard_h
-#define keyboard_h
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
+
 void keyboard_handler(void);
+
 #endif

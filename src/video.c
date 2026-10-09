@@ -1,14 +1,11 @@
-/* =========================
-   VIDEO
-   ========================= */
+#include "video.h"
 
-volatile uint16_t *video = (volatile uint16_t *)VIDEO_MEMORY;
+static volatile uint16_t *const video =
+    (volatile uint16_t *)VIDEO_MEMORY;
 
-int cursor_x = 0;
-int cursor_y = 0;
-
-uint8_t color = 0x07;
-
+static int cursor_x = 0;
+static int cursor_y = 0;
+static uint8_t color = 0x07;
 
 void put_char(char c)
 {
@@ -19,8 +16,8 @@ void put_char(char c)
     }
     else
     {
-        video[cursor_y * WIDTH + cursor_x]
-            = ((uint16_t)color << 8) | c;
+        video[cursor_y * WIDTH + cursor_x] =
+            ((uint16_t)color << 8) | (uint8_t)c;
 
         cursor_x++;
 
@@ -52,7 +49,6 @@ void put_char(char c)
     }
 }
 
-
 void print(const char *text)
 {
     for (int i = 0; text[i] != '\0'; i++)
@@ -60,7 +56,6 @@ void print(const char *text)
         put_char(text[i]);
     }
 }
-
 
 void clear_screen(void)
 {
@@ -75,4 +70,21 @@ void clear_screen(void)
 
     cursor_x = 0;
     cursor_y = 0;
+}
+
+void video_backspace(void)
+{
+    if (cursor_x == 0 && cursor_y == 0)
+        return;
+
+    if (cursor_x == 0)
+    {
+        cursor_y--;
+        cursor_x = WIDTH;
+    }
+
+    cursor_x--;
+
+    video[cursor_y * WIDTH + cursor_x] =
+        ((uint16_t)color << 8) | ' ';
 }

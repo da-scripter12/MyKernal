@@ -1,7 +1,10 @@
-/* =========================
-   COMMANDS
-   ========================= */
-void execute_command(void);
+#include "io.h"
+#include "video.h"
+#include "commands.h"
+
+char command[128];
+int command_length = 0;
+
 int string_equals(const char *a, const char *b)
 {
     int i = 0;
@@ -16,7 +19,6 @@ int string_equals(const char *a, const char *b)
 
     return a[i] == '\0' && b[i] == '\0';
 }
-
 
 int starts_with(const char *text, const char *prefix)
 {
@@ -33,18 +35,15 @@ int starts_with(const char *text, const char *prefix)
     return 1;
 }
 
-
 void execute_command(void)
 {
     command[command_length] = '\0';
-
     put_char('\n');
 
     if (string_equals(command, ""))
     {
-        /* nothing */
+        /* Empty command. */
     }
-
     else if (string_equals(command, "help"))
     {
         print("Commands:\n");
@@ -53,59 +52,55 @@ void execute_command(void)
         print("  echo     - print text\n");
         print("  about    - about this kernel\n");
         print("  reboot   - reboot computer\n");
+        print("  shutdown - shut down emulator\n");
+        print("  version  - show version\n");
+        print("  whoami   - show current user\n");
     }
-
     else if (string_equals(command, "clear"))
     {
         clear_screen();
     }
-
     else if (string_equals(command, "about"))
     {
-        print("MyOS - tiny x86 kernel\n");
+        print("GojiOS - tiny x86 kernel\n");
         print("Written in C + Assembly.\n");
-        print("Running directly on the machine.\n");
+        print("Booted through GRUB.\n");
     }
-
     else if (starts_with(command, "echo "))
     {
         print(command + 5);
         put_char('\n');
     }
-
     else if (string_equals(command, "echo"))
     {
         put_char('\n');
     }
-
     else if (string_equals(command, "reboot"))
     {
         print("Rebooting...\n");
 
-        uint8_t good = 0x02;
-
-        while (good & 0x02)
+        /* Wait until the keyboard controller input buffer is empty. */
+        while (inb(KEYBOARD_STATUS_PORT) & 0x02)
         {
-            good = inb(0x64);
         }
 
-        outb(0x64, 0xFE);
+        outb(KEYBOARD_STATUS_PORT, 0xFE);
 
-        while (1)
-        {
+        for (;;)
             __asm__ volatile ("hlt");
-        }
     }
     else if (string_equals(command, "shutdown"))
     {
         print("Shutting down...\n");
 
-        outb(0x604, 0x2000);
+        /*
+         * QEMU/Bochs commonly support the ACPI shutdown port.
+         * This is emulator-specific, not a universal PC shutdown method.
+         */
+        outw(0x604, 0x2000);
 
-        while (1)
-        {
+        for (;;)
             __asm__ volatile ("hlt");
-        }
     }
     else if (string_equals(command, "version"))
     {
@@ -119,12 +114,11 @@ void execute_command(void)
     {
         print("Unknown command: ");
         print(command);
-        print("\n");
+        put_char('\n');
     }
 
     command_length = 0;
+    command[0] = '\0';
 
-    print("myOS> ");
+    print("Gsh> ");
 }
-
-
