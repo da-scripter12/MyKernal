@@ -15,6 +15,7 @@ A tiny x86 kernel written in C and Assembly.
 - `reboot`
 - `version`
 - `whoami`
+- `ls`
 
 ## Building
 

@@ -1,6 +1,7 @@
 #include "io.h"
 #include "video.h"
 #include "commands.h"
+#include "ext2.h"
 
 char command[128];
 int command_length = 0;
@@ -55,6 +56,7 @@ void execute_command(void)
         print("  shutdown - shut down computer\n");
         print("  version  - show version\n");
         print("  whoami   - show current user\n");
+        print("  ls       - list files in root directory\n");
     }
     else if (string_equals(command, "clear"))
     {
@@ -109,6 +111,10 @@ void execute_command(void)
     else if (string_equals(command, "whoami"))
     {
         print("root\n");
+    }
+    else if (string_equals(command, "ls"))
+    {
+        ext2_list_root();
     }
     else
     {
