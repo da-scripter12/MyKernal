@@ -9,7 +9,7 @@ CFLAGS = -m32 -ffreestanding -fno-pie -fno-stack-protector \
          -fno-builtin -Wall -Wextra -Isrc
 LDFLAGS = -m elf_i386 -T linker.ld
 
-C_SOURCES = src/kernel.c src/commands.c src/keyboard.c src/video.c
+C_SOURCES = src/kernel.c src/commands.c src/keyboard.c src/video.c src/drivers/ata.c
 C_OBJECTS = $(C_SOURCES:.c=.o)
 
 all: kernel.bin
