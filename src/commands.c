@@ -52,7 +52,7 @@ void execute_command(void)
         print("  echo     - print text\n");
         print("  about    - about this kernel\n");
         print("  reboot   - reboot computer\n");
-        print("  shutdown - shut down emulator\n");
+        print("  shutdown - shut down computer\n");
         print("  version  - show version\n");
         print("  whoami   - show current user\n");
     }
