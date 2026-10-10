@@ -29,7 +29,7 @@ iso: kernel.bin
 	grub-mkrescue -o kernel.iso iso
 
 run: iso
-	$(QEMU) -cdrom kernel.iso
+	$(QEMU)-drive file=ext2.img,format=raw,if=ide,index=0,media=disk -cdrom kernel.iso
 
 clean:
 	rm -f boot.o $(C_OBJECTS) kernel.bin kernel.iso
