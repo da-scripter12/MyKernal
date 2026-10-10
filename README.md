@@ -16,6 +16,7 @@ A tiny x86 kernel written in C and Assembly.
 - `version`
 - `whoami`
 - `ls`
+-`dskinf`
 
 ## Building
 

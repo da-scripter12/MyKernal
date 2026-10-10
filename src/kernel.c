@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include "drivers/ata.h"
 
+
+
 void kernel_main(void)
 {
     clear_screen();
