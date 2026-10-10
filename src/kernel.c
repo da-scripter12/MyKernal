@@ -35,6 +35,7 @@ void kernel_main(void)
     print("========================================\n\n");
     print("Welcome to GojiOS!\n");
     print("Type 'help' for commands.\n\n");
+    ext2_disk_test();
 
     print("Gsh> ");
 
